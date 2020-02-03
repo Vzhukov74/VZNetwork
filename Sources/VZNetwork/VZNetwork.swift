@@ -5,7 +5,7 @@ import UIKit
 
 public class VZNetwork {}
 
-extension URLSession {
+public extension URLSession {
     func dataTask(with request: VZNetwork.Request) -> URLSessionDataTask {
         return self.dataTask(with: request.request, completionHandler: { (data, response, error) in
             DispatchQueue.main.async {
