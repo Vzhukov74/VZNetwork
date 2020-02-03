@@ -7,14 +7,14 @@ public class VZNetwork {}
 
 extension URLSession {
     func dataTask(with request: VZNetwork.Request) -> URLSessionDataTask {
-        return self.dataTask(with: request._request, completionHandler: { (data, response, error) in
+        return self.dataTask(with: request.request, completionHandler: { (data, response, error) in
             DispatchQueue.main.async {
                 request._end?()
                 #if canImport(UIKit)
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 #endif
             }
-                                
+                                            
             if let error = error {
                 DispatchQueue.main.async {
                     request._result?(.fail(error.localizedDescription))

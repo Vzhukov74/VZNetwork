@@ -22,7 +22,7 @@ class URLHelper {
             for photo in media {
                 body.append("--\(boundary + lineBreak)")
                 body.append("Content-Disposition: form-data; name=\"\(photo.key)\"; filename=\"\(photo.filename)\"\(lineBreak)")
-                body.append("Content-Type: \(photo.mimeType + lineBreak + lineBreak)")
+                body.append("Content-Type: \(photo.type.rawValue + lineBreak + lineBreak)")
                 body.append(photo.data)
             }
         }

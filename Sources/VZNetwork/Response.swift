@@ -1,7 +1,7 @@
 import Foundation
 
 public extension VZNetwork {
-    class Response {
+    struct Response {
         public let response: HTTPURLResponse
         public let data: Data
         

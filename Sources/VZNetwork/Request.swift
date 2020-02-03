@@ -5,25 +5,28 @@ public typealias HTTPParemeters = [String: Any]
 
 public extension VZNetwork {
     class Request {
-        public var _start: (() -> Void)?
-        public var _end: (() -> Void)?
-        public var _result: ((_ result: VZNetwork.Result) -> Void)?
-        public var _request: URLRequest
+        internal var _start: (() -> Void)?
+        internal var _end: (() -> Void)?
+        internal var _result: ((_ result: VZNetwork.Result) -> Void)?
+        public var request: URLRequest
         
         public init(with request: URLRequest) {
-            self._request = request
+            self.request = request
         }
         
-        public func start(_ action: @escaping () -> Void) {
+        public func start(_ action: @escaping () -> Void) -> VZNetwork.Request {
             _start = action
+            return self
         }
         
-        public func result(_ action: @escaping (_ result: VZNetwork.Result) -> Void) {
+        public func result(_ action: @escaping (_ result: VZNetwork.Result) -> Void) -> VZNetwork.Request {
             _result = action
+            return self
         }
         
-        public func end(_ action: @escaping () -> Void) {
+        public func end(_ action: @escaping () -> Void) -> VZNetwork.Request {
             _end = action
+            return self
         }
     }
 }
@@ -43,7 +46,7 @@ extension VZNetwork.Request {
     }
     
     public func add(etag: String) {
-        self._request.addValue(etag, forHTTPHeaderField: "If-None-Match")
+        self.request.addValue(etag, forHTTPHeaderField: "If-None-Match")
     }
     
     private static func request(url: String, method: String = "GET", parameters: HTTPParemeters, headers: HTTPHeaders, media: [VZNetwork.Media]?) -> URLRequest? {
