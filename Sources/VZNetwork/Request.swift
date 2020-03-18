@@ -40,7 +40,7 @@ extension VZNetwork.Request {
         self.init(with: request)
     }
     
-    public convenience init?(url: String, method: String = "GET", parameters: HTTPParemeters, headers: HTTPHeaders, media: [VZNetwork.Media]?) {
+    public convenience init?(url: String, method: String = "GET", parameters: HTTPParemeters?, headers: HTTPHeaders?, media: [VZNetwork.Media]?) {
         guard let request = VZNetwork.Request.request(url: url, method: method, parameters: parameters, headers: headers, media: media) else { return nil }
         self.init(with: request)
     }
@@ -49,7 +49,7 @@ extension VZNetwork.Request {
         self.request.addValue(etag, forHTTPHeaderField: "If-None-Match")
     }
     
-    private static func request(url: String, method: String = "GET", parameters: HTTPParemeters, headers: HTTPHeaders, media: [VZNetwork.Media]?) -> URLRequest? {
+    private static func request(url: String, method: String = "GET", parameters: HTTPParemeters?, headers: HTTPHeaders?, media: [VZNetwork.Media]?) -> URLRequest? {
         var urlStr = url
         if method == "GET" {
             urlStr += URLHelper.getString(for: parameters)
